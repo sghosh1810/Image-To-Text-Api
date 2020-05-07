@@ -1,0 +1,8 @@
+<form action="">
+    <legend>Converted Text</legend>
+    <textarea name="text" rows="30" cols="150" readonly><%= text %></textarea>
+    <% if (mode==="dev") {%>
+        <legend>Request Body</legend>
+        <input type="text" value="<%= request %>" readonly></input>
+    <% } %>
+</form>

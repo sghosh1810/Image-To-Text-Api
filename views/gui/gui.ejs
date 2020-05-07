@@ -1,0 +1,27 @@
+<form action="/gui" method="POST">
+
+    <fieldset>
+      <label for="firstName">Image Url</label>
+      <input type="text" name="url" id="url" placeholder="https://example.com/abc.png" required>
+    </fieldset>
+
+    <fieldset>
+      <label for="json">Json</label>
+      <select name="json" id="json" required>
+        <option value="false">false</option>
+        <option value="true">true</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <label for="json">Developer Mode</label>
+      <select name="mode" id="mode" required>
+        <option value="false">false</option>
+        <option value="true">true</option>
+      </select>
+    </fieldset>
+
+    
+    <button type="submit">Submit</button>
+
+</form>

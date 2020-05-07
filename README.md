@@ -1,6 +1,6 @@
-# Image To Text Api
+# Image To Text Api/Gui
 
-A image to text api built on node.js, tesseract.js
+A image to text api/gui built on node.js, tesseract.js.
 
 ## Usage
 
@@ -35,8 +35,11 @@ nodemon: "^2.0.3",
 npm: "^6.14.5",
 tesseract.js : "^2.1.1"
 ```
-## Example
+## Example of Api call via Postman
 ![main](https://res.cloudinary.com/websway/image/upload/v1588787524/Screenshot_2020-05-06_at_11.21.41_PM_ycg8ou.png)
+
+## Gui
+![main](https://res.cloudinary.com/websway/image/upload/v1588846712/Screenshot_2020-05-07_at_3.47.22_PM_viuaci.png)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
