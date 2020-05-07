@@ -24,4 +24,4 @@ app.use(bodyParser.json())
 app.use('/', indexRouter)
 
 
-app.listen(process.env.port || 443)
+app.listen(process.env.PORT || 3000)
