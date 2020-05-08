@@ -2,6 +2,9 @@
 
 A image to text api/gui built on node.js, tesseract.js.
 
+##Build
+![Node.js CI](https://github.com/sghosh1810/Image-To-Text-Api/workflows/Node.js%20CI/badge.svg?branch=master)
+
 ## Usage
 
 If your public url is example.com then api will be at example.com/api.
