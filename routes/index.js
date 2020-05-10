@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { createWorker } = require('tesseract.js')
+const { createWorker, createScheduler } = require('tesseract.js')
 let imageTypes = ["png","jpg","jpeg"]
 
 
@@ -68,13 +68,15 @@ router.post('/api',async (req,res) =>{
 //Worker Function for API
 async function tesseractWorkerFunctionAPI(req,res) {
     
+    const scheduler = createScheduler()
     const worker = createWorker()
     await worker.load();
     await worker.loadLanguage('eng');
     await worker.initialize('eng');
-    const { data: { text } } = await worker.recognize(req.query['url']);
-    await worker.terminate();
-    //console.log(req.query)
+    scheduler.addWorker(worker)
+    const { data: { text } } = await scheduler.addJob('recognize',req.query['url']);
+    //await worker.terminate();
+    await scheduler.terminate()
     if (req.query['json']==='true'){
         var dateObject = new Date()
         var date = dateObject.getHours() + "-" + dateObject.getMinutes() + "-" + dateObject.getSeconds()
@@ -89,12 +91,14 @@ async function tesseractWorkerFunctionAPI(req,res) {
 //Worker Function for GUI
 async function tesseractWorkerFunctionGUI(req,res) {
 
+    const scheduler = createScheduler()
     const worker = createWorker()
     await worker.load();
     await worker.loadLanguage('eng');
     await worker.initialize('eng');
-    const { data: { text } } = await worker.recognize(req.body.url);
-    await worker.terminate();
+    scheduler.addWorker(worker)
+    const { data: { text } } = await scheduler.addJob('recognize',req.body.url);
+    await scheduler.terminate();
     //console.log(req.query)
     if (req.body.json=='true'){
         var dateObject = new Date()
