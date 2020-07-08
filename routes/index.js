@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
+const yup = require('yup')
 const { createWorker, createScheduler } = require('tesseract.js')
-let imageTypes = ["png","jpg","jpeg"]
+
+const schema = yup.string().matches(yup.string().url())
 
 
 //Redirect root to /gui
@@ -25,13 +27,9 @@ router.get('/api', (req,res) => {
 //Handles form submit from gui/gui.ejs and sends results to ans/ans.ejs view
 router.post('/gui',async (req,res) =>{
     try {
-        try {
-            if (await isValidUrl(req,"gui")){
-                await tesseractWorkerFunctionGUI(req,res);
-            } else {
-                res.send("Invalid image format or bad url!")
-            }
-        } catch {
+        if (await schema.isValid(req.body.url)){
+            await tesseractWorkerFunctionGUI(req,res);
+        } else {
             res.send("Invalid image format or bad url!")
         }
     } catch {
@@ -46,13 +44,9 @@ router.post('/gui',async (req,res) =>{
 //Handles api request and sends either text or json output
 router.post('/api',async (req,res) =>{
     try {
-        try {
-            if (await isValidUrl(req,"api")){
-                await tesseractWorkerFunctionAPI(req,res);
-            } else {
-                res.send("Invalid image format or bad url!")
-            }
-        } catch {
+        if (schema.isValid(req.param["url"])){
+            await tesseractWorkerFunctionAPI(req,res);
+        } else {
             res.send("Invalid image format or bad url!")
         }
     }
@@ -121,20 +115,6 @@ async function tesseractWorkerFunctionGUI(req,res) {
     
 }
 
-//Checks if url contains an image type
-async function isValidUrl(req,type){
-    if (type ==="api") {
-        if (req.query['url'].includes(imageTypes[0]) || req.query['url'].includes(imageTypes[1]) || req.query['url'].includes(imageTypes[2])) {
-            return true
-        }
-        return false
-    }
-    if (type ==="gui") {
-        if (req.body.url.includes(imageTypes[0]) || req.body.url.includes(imageTypes[1]) || req.bosy.url.includes(imageTypes[2])) {
-            return true
-        }
-        return false
-    }
-}
+
 
 module.exports = router
